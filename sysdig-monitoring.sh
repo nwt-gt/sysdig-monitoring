@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Monitoring container
-
 echo "Sysdig logging"
 
 set -eu
@@ -11,12 +10,12 @@ echo "Logging-date: ${date}"
 outputFileName=${date}_logs
 
 containerName=$1
-attachment=${2}${date}_logs
+attachment=${2}${outputFileName}
 email=$3
 window=$4
 echo "Container to monitor: ${containerName} with window: ${window} seconds"
 
-sysdig -pc -M ${window} -w ${date}.scap -c spy_users container.name=${containerName} >> ${PWD}/logs/${outputFileName}
+sysdig -pc -M ${window} -w ${date}.scap -c spy_users container.name=${containerName} >> ${attachment}
 
 echo "${date}_Logging-complete"
 echo "Removing scap to clear space"
