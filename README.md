@@ -2,6 +2,10 @@
 
 Monitoring commands running in container using sysdig spy_users
 
+# Limitations
+
+Unable to send email directly to @hive-ida.slack.com domain as unable to configure to use dsaid.gov.sg directly from Ubuntu. Need access which is managed by domain [admin](https://myaccount.google.com/lesssecureapps)
+
 # Setup
 
 Create a workspace directory and in the directory, create a logs folder
