@@ -7,8 +7,8 @@ set -eu
 
 if [[ $# -ne 4 ]]; then
     echo "Wrong arguments. Call this script with:"
-    echo " ${0} <containerName> <pathToAttachment> <Email> <Window>"
-    exit 2;
+    echo "${0} <containerName> <pathToAttachment> <Email> <Window>"
+    exit 1;
 fi
 
 
