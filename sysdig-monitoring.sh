@@ -5,6 +5,13 @@ echo "Sysdig logging"
 
 set -eu
 
+if [[ $# -ne 4 ]]; then
+    echo "Wrong arguments. Call this script with:"
+    echo " ${0} <containerName> <pathToAttachment> <Email> <Window>"
+    exit 2;
+fi
+
+
 date=`date +%d-%m-%Y`
 echo "Logging-date: ${date}"
 outputFileName=${date}_logs
@@ -30,5 +37,5 @@ echo "Logs for ${date} ----- Please check " | mutt -a ${attachment} -s "Sysdig l
 
 echo "Mail sent"
 
-exit 0
+exit $?
 
