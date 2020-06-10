@@ -40,7 +40,6 @@ do
    then
       continue
    fi
-   echo "${var}"
    tail -f ${logfiles} | grep -E --line-buffered "${var}" >> logs/filtered_logs &
 done
 
