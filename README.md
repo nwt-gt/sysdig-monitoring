@@ -43,7 +43,7 @@ Here I added keywords filtering of sudo and su
 Tail the log files from above and run commands inside the container that is being monitored 
 
 ```
-tail -f logs/monitor/11-06-2020_logs
+tail -f logs/monitor/11-06-2020_monitor_logs
 tail -f logs/filter/11-06-2020_filter_logs
 docker exec -it docker_postgres.9.6_1 bash
 ```
