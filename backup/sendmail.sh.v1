@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Sending mail"
+
+date=`date +%d-%m-%Y`
+emailPath=$1
+attachment=${emailPath}${date}_logs.txt
+email=$2
+
+echo "Recipient: ${email} --------------- Attaching: ${attachment}"
+
+echo "Logs for $date ----- \n this is using crontab " | mutt -a ${attachment} -s "Sysdig logging ${date}" -- ${email}

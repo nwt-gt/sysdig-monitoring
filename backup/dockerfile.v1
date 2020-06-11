@@ -1,0 +1,33 @@
+FROM ubuntu:18.04 as base
+
+# Set up Base OS user accounts and packages
+ENV DEBIAN_FRONTEND noninteractive
+ENV LANG C.UTF-8
+
+COPY monitoring.sh /monitoring.sh
+COPY sendmail.sh /sendmail.sh
+RUN chmod 555 /monitoring.sh
+
+RUN apt-get -y update && \
+    apt-get -y --no-install-recommends upgrade && \
+# Install OS utilities
+    apt-get -y --no-install-recommends install apt-utils apt-transport-https bash-completion \
+      ca-certificates ccache file fonts-texgyre g++ gfortran gsfonts make unzip zip zlib1g \
+      curl subversion locales wget git bzip2 openssl curl gnupg gnupg2 nfs-common \
+      rsyslog openssl xauth xvfb xfonts-base x11proto-core-dev software-properties-common \
+      krb5-user systemd apparmor apparmor-utils apparmor-profiles-extra gosu gdebi-core \
+      sudo default-jdk psmisc tzdata auditd mutt && \
+
+# Set Up Locales and Timezone
+    locale-gen en_US en_US.UTF-8 && dpkg-reconfigure locales && \
+    echo "Asia/Singapore" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata && \
+
+# Cleaning up
+	  apt-get purge && \
+      apt-get -y autoremove && \
+      apt-get -y autoclean && \
+      rm -rf /var/lib/apt/lists/* && \
+      ccache -C
+	  
+# No Healthcheck for Base Images.
+HEALTHCHECK NONE
