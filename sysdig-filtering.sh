@@ -34,7 +34,9 @@ function monitor_func {
 
     echo "Container --- ${containerName}" && echo "Window --- ${window} seconds"
     outputFileName=logs/monitor/${date}_monitor_logs
-
+    echo "************"
+    echo "${command}"
+    echo "************"
     ${command} >> ${outputFileName} 2>&1 &
 }
 
