@@ -15,6 +15,10 @@ if [[ $# -lt 2 ]]; then
     echo "Wrong arguments. Call this script with:"
     echo "${0} <containerName> <Window> <Optional-filterArg1> <Optional-filterArg2> ..."
     exit 1
+elif [[ $# -gt 7 ]]; then 
+    echo "Too many arguments. Call this script with:"
+    echo "${0} <containerName> <Window> <Optional-filterArg1> <Optional-filterArg2> ..."
+    exit 1
 fi
 
 echo "Logging-date --- ${dateTime}"
@@ -56,7 +60,7 @@ if [[ $# -eq 2 ]]; then
     monitor_func
 
 # Monitoring with filter
-elif [[ $# -gt 2 ]] || [[ $# -lt 7 ]]; then
+else
 
     tmp=''
     array="${@:3}"
@@ -78,9 +82,6 @@ elif [[ $# -gt 2 ]] || [[ $# -lt 7 ]]; then
     done 
 
     filter_func    
-       
-else
-    echo "Too many arguments"
 fi
 
 
