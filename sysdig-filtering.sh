@@ -25,8 +25,12 @@ echo "Logging-date --- ${dateTime}"
 
 containerName=$1
 window=$2
+rotation=2
+scapPath=scap/test.scap
 
-command="nohup stdbuf -oL -eL sysdig -pc -G ${window} -W 2 -w scap/test.scap -c spy_users \
+# removed buffer and captures events into files that contain <window> seconds of system 
+# activity, and keeps the last 2 files by file rotation.
+command="nohup stdbuf -oL -eL sysdig -pc -G ${window} -W ${rotation} -w ${scapPath} -c spy_users \
 container.name=${containerName}"
 
 # runs command at background and stream scap output to logs directly
