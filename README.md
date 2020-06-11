@@ -8,6 +8,7 @@ Create a workspace directory and in the directory, create a logs folder
 ```
 mkdir -p logs/monitor
 mkdir -p logs/filter
+mkdir scap
 ```
 
 Run Chmod +x to make the script executable
@@ -31,16 +32,17 @@ Here I am using *docker_postgres.9.6_1* as the container with a monitoring windo
 Run the sysdig-filtering scrip with the following arguments.
  1. Name of container to monitor
  2. Monitoring window in seconds
- 3. Keywords to filter. *Maximum of 5 - can be changed from source code* 
+ 3. Keywords to filter. *Maximum of 5 - can be changed by editing sysdig-filtering scrip* 
  
-Here I added keywords filtering of sudo and su 
+Here I added keywords filtering for sudo and su 
 ```
 ./sysdig-filtering.sh docker_postgres.9.6_1 60 sudo su
  ```
  
 # Check output
 
-Tail the log files from above and run commands inside the container that is being monitored 
+Tail the log files from above and run commands inside the container that is being monitored
+log files are named by <dd-mm-yyyy>_<monitor|filter>_logs
 
 ```
 tail -f logs/monitor/11-06-2020_monitor_logs
