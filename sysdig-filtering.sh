@@ -1,8 +1,8 @@
 #!/bin/bash
-
-set -eu
 # redirect sysdig-monitoring stdout/stderr to a sysdig_logs
 exec > >(tee -a logs/sysdig_logs) 2>&1
+
+set -eu
 
 date=`date +%d-%m-%Y`
 dateTime=`date +%d-%m-%Y:%H:%M:%S`
@@ -16,7 +16,7 @@ if [[ $# -lt 2 ]]; then
     echo "${0} <containerName> <Window> <Optional-filterArg1> <Optional-filterArg2> ..."
     exit 1
 elif [[ $# -gt 7 ]]; then 
-    echo "Too many arguments. Call this script with:"
+    echo "Too many arguments. Max 7"
     echo "${0} <containerName> <Window> <Optional-filterArg1> <Optional-filterArg2> ..."
     exit 1
 fi
@@ -51,27 +51,20 @@ function filter_func {
     ${command} and proc.name=${filterArg}${tmp} >> ${outputFileName} 2>&1 &
 }
 
-
 function add_filter {
     filterStr=" or proc.name=${filterArg}"
 }
 
-
 # Monitoring without filtering
 if [[ $# -eq 2 ]]; then
     monitor_func
-
 # Monitoring with filter
 else
-
     tmp=''
     array="${@:3}"
-
 # loop thru user input from 3rd argument on 
-    for i in "${@:3}"; do
-       
+    for i in ${array}; do   
         filterArg=${i}
-
         # skip the last input arg to prevent duplicates. 
         # if filterArg1 is also the last arg. it will skip the remaining loop     
         if [[ $i == ${@: -1} ]]; then
@@ -80,11 +73,8 @@ else
         # adds on to the sysdig list for more filters        
         add_filter
         tmp="${tmp}${filterStr}" 
-
     done 
-
     filter_func    
 fi
-
 
 exit 0
