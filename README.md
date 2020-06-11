@@ -6,35 +6,36 @@ Monitoring commands running in container using sysdig spy_users
 
 Create a workspace directory and in the directory, create a logs folder
 ```
-mkdir logs 
+mkdir -p logs/monitor
+mkdir -p logs/filter
 ```
 
 Run Chmod +x to make the script executable
 ```
-chmod +x sysdig-monitoring.sh 
-chmod +x logs-filtering.sh 
+chmod +x sysdig-filtering.sh 
 
 ```
 
 # Monitoring of container
 
-Run the sysdig-monitoring script with the following arguments.
+Run the sysdig-filtering script with the following arguments.
  1. Name of container to monitor
  2. Monitoring window in seconds
 
 Here I am using *docker_postgres.9.6_1* as the container with a monitoring window of *60 seconds*
 ```
-./sysdig-monitoring.sh docker_postgres.9.6_1 60
+./sysdig-filtering.sh docker_postgres.9.6_1 60
 ```
 
-# Filtering keywords from logs file
-Run the logs-filtering scrip with the following arguments.
- 1. Name of log file 
- 2. Arbitrary number of arguments to filter
+# Monitoring and filtering of commands executed in container
+Run the sysdig-filtering scrip with the following arguments.
+ 1. Name of container to monitor
+ 2. Monitoring window in seconds
+ 3. Keywords to filter. *Maximum of 5 - can be changed from source code* 
  
-Here I am using *10-06-2020_logs* as the log file and filtering for sudo and su 
+Here I added keywords filtering of sudo and su 
 ```
- ./logs-filtering.sh logs/10-06-2020_logs su sudo
+./sysdig-filtering.sh docker_postgres.9.6_1 60 sudo su
  ```
  
 # Check output
@@ -42,7 +43,7 @@ Here I am using *10-06-2020_logs* as the log file and filtering for sudo and su
 Tail the log files from above and run commands inside the container that is being monitored 
 
 ```
-tail -f logs/10-06-2020_logs
-tail -f logs/filtered_logs
+tail -f logs/monitor/11-06-2020_logs
+tail -f logs/filter/11-06-2020_filter_logs
 docker exec -it docker_postgres.9.6_1 bash
 ```
