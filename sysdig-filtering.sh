@@ -35,9 +35,10 @@ container.name=${containerName}"
 
 # runs command at background and stream scap output to logs directly
 function monitor_func {
+    
+    outputFileName=logs/monitor/${date}_monitor_logs
 
     echo "Container --- ${containerName}" && echo "Window --- ${window} seconds"
-    outputFileName=logs/monitor/${date}_monitor_logs
     echo "************"
     echo "${command}"
     echo "************"
