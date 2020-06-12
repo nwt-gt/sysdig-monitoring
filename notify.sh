@@ -18,6 +18,6 @@ inotifywait -m --event modify --format '%w' ${filePath} | while read f; do
         # Here I sysout the file details and append to trigger
         echo "Full path - ${f}"
         echo "File Name - ${f##*/}"; 
-    done >> logs/trigger 2>&1 &
+    done >> logs/trigger_logs 2>&1 &
 
 exit 0 
