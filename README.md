@@ -64,7 +64,10 @@ chmod +x notify.sh
 ```
 
 # Monitoring of directory files
-Run notify script
+Run notify script with the following arguments.
+ 1. Path of files to monitor
+
+Here I am monitoring all log files in the $(pwd)/logs/filter/ directory.
 ```
-./notify.sh
+./notify.sh $(pwd)/logs/filter/\*_logs
 ```
