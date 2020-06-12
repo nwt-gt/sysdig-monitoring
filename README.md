@@ -14,7 +14,6 @@ mkdir scap
 Run Chmod +x to make the script executable
 ```
 chmod +x sysdig-filtering.sh 
-
 ```
 
 # Monitoring of container
@@ -41,11 +40,31 @@ Here I added keywords filtering for sudo and su
  
 # Check output
 
-Tail the log files from above and run commands inside the container that is being monitored
-log files are named by <dd-mm-yyyy>_<monitor|filter>_logs
-
+Tail the log files from above and run commands inside the container that is being monitored.
+Log files are named <dd-mm-yyyy>_<monitor|filter>_logs where date is the date where script is triggered
 ```
 tail -f logs/monitor/11-06-2020_monitor_logs
 tail -f logs/filter/11-06-2020_filter_logs
 docker exec -it docker_postgres.9.6_1 bash
+```
+
+# Trigger of actions 
+
+The notify scripts allow user to monitor for any changes in a file and allows some actions to be triggered. Currently, the script only outputs the file Path and Name once triggered. Can be modified.
+
+# Setup
+Install inotify-tools. inotify-tools provides inotifywait and inotifywatch binaries, we need the first one.
+```
+sudo apt-get install inotify-tools
+```
+
+Run Chmod +x to make the script executable
+```
+chmod +x notify.sh 
+```
+
+# Monitoring of directory files
+Run notify script
+```
+./notify.sh
 ```
